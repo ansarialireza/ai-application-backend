@@ -35,10 +35,10 @@ jobs:
         run: docker compose build api
 
       - name: Django check
-        run: docker compose run --rm --no-deps -e DATABASE_URL=sqlite:///ci.sqlite3 api python manage.py check
+        run: docker compose run --rm --no-deps --user root -e DATABASE_URL=sqlite:///ci.sqlite3 api python manage.py check
 
       - name: Tests
-        run: docker compose run --rm --no-deps -e DATABASE_URL=sqlite:///ci.sqlite3 api python manage.py test apps core
+        run: docker compose run --rm --no-deps --user root -e DATABASE_URL=sqlite:///ci.sqlite3 api python manage.py test apps core
 
   deploy:
     needs: test
